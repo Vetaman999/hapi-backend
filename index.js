@@ -40,7 +40,7 @@ const { host } = require('pg/lib/defaults')
 const fs = require('fs')
 const storage = require('./lib/storage').getStorage('postgresql', K.ALLOWED_SERVICES)
 
-init().catch(function(err) { console.log(err) })
+init().catch(function (err) { console.log(err) })
 async function init() {
   await storage.init()
   const oArgs = {
@@ -54,7 +54,7 @@ async function init() {
       cors: {
         origin: ['*'],
         headers: ["Accept", "X-PINGOTHER", "Content-Type", "Authorization", "Access-Control-Allow-Credentials", 'Access-Control-Allow-Headers', 'Access-Control-Expose-Headers'], // an array of strings - 'Access-Control-Allow-Headers'
-        exposedHeaders: ['Accept', 'Access-Control-Expose-Headers'], 
+        exposedHeaders: ['Accept', 'Access-Control-Expose-Headers'],
         additionalExposedHeaders: ['Accept', "X-Requested-With"],
         maxAge: 60,
         credentials: true,
@@ -77,7 +77,7 @@ async function init() {
     Inert,
     Vision,
     {
-      plugin: require('./lib/routes/afiliado.js'),    
+      plugin: require('./lib/routes/afiliado.js'),
       options: {
         storage: storage,
         json: JSON
@@ -85,6 +85,13 @@ async function init() {
     },
     {
       plugin: require('./lib/routes/usuario.js'),
+      options: {
+        storage: storage,
+        json: JSON
+      }
+    },
+    {
+      plugin: require('./lib/routes/demo.js'),
       options: {
         storage: storage,
         json: JSON
